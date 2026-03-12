@@ -45,10 +45,10 @@ int dw3000_spi_init(void)
 	 * We have to keep two different config structures due to the way the SPI
 	 * driver works */
 	spi_cfgs[0].frequency = 2000000;
-	spi_cfgs[1].frequency = DT_PROP(DW_INST, spi_max_frequency);
+	spi_cfgs[1].frequency = DT_PROP_OR(DW_INST, spi_max_frequency, 0);
 	spi_cfg = &spi_cfgs[0];
 
-	spi = DEVICE_DT_GET(DW_SPI);
+	spi = DEVICE_DT_GET_OR_NULL(DW_SPI);
 	if (!spi) {
 		LOG_ERR("DW3000 SPI binding failed");
 		return -1;
